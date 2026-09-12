@@ -6,6 +6,48 @@ from homeassistant.components.recorder.statistics import get_last_statistics
 from custom_components.scgas import client
 
 
+async def test_reconfigure_keeps_account_and_saved_history(hass, loaded):
+    flow = await hass.config_entries.flow.async_init(
+        "scgas", context={"source": "reconfigure", "entry_id": loaded.entry_id}
+    )
+    result = await hass.config_entries.flow.async_configure(
+        flow["flow_id"],
+        {
+            "customer_id": "111111",
+            "customer_name": "測試",
+            "name": "新名稱",
+            "history_limit": 0,
+        },
+    )
+    assert result["type"] == FlowResultType.ABORT
+    assert loaded.data["customer_id"] == "000000"
+    assert len(loaded.runtime_data.bills) == 1
+
+
+async def test_reload_preserves_bills_without_new_query(hass, loaded):
+    before = deepcopy(loaded.runtime_data.bills)
+    with patch("custom_components.scgas.client.query") as query:
+        assert await hass.config_entries.async_reload(loaded.entry_id)
+        await hass.async_block_till_done()
+        if loaded.runtime_data._statistics_task:
+            await loaded.runtime_data._statistics_task
+        assert loaded.runtime_data.bills == before
+        query.assert_not_called()
+
+
+async def test_options_validate_factor_source(hass, loaded):
+    flow = await hass.config_entries.options.async_init(loaded.entry_id)
+    result = await hass.config_entries.options.async_configure(
+        flow["flow_id"],
+        {
+            **loaded.options,
+            "carbon_factor": 2.0,
+            "carbon_factor_source": "",
+        },
+    )
+    assert result["errors"] == {"carbon_factor_source": "carbon_factor_source_required"}
+
+
 async def test_setup_entities_diagnostics_and_recorder(hass, loaded, recorder_mock):
     c = loaded.runtime_data
     if c._statistics_task:

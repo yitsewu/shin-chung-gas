@@ -10,7 +10,11 @@ destination = root / "dist"
 destination.mkdir(exist_ok=True)
 with ZipFile(destination / "scgas.zip", "w", compression=ZIP_DEFLATED) as archive:
     for path in sorted(source.rglob("*")):
-        if not path.is_file() or "__pycache__" in path.parts or path.suffix not in {".py", ".json", ".yaml"}:
+        if (
+            not path.is_file()
+            or "__pycache__" in path.parts
+            or (path.suffix not in {".py", ".json", ".yaml"} and path.name != "LICENSE")
+        ):
             continue
         info = ZipInfo(path.relative_to(source).as_posix(), date_time=(2026, 1, 1, 0, 0, 0))
         info.compress_type = ZIP_DEFLATED

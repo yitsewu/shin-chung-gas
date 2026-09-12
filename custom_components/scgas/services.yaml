@@ -1,6 +1,6 @@
 get_history:
   name: 讀取已保存的帳單與分攤
-  description: 回傳本機帳单與每月分攤估算，不向原站送出新查詢。
+  description: 回傳本機帳單與每月分攤估算，不向原站送出新查詢。
   fields:
     config_entry_id:
       name: 欣中帳戶
@@ -18,7 +18,7 @@ get_history:
           mode: box
 get_query_history:
   name: 讀取最近查詢紀錄
-  description: 回傳最近 100 次內的查詢狀態、OCR 與欣中驗證結果，不觸發查詢。最新紀錄在前。
+  description: 回傳最近 100 次內的查詢狀態與欣中驗證結果，不觸發查詢。最新紀錄在前。
   fields:
     config_entry_id:
       name: 欣中帳戶
