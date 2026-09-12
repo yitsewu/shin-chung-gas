@@ -1,0 +1,328 @@
+{
+  "title": "欣中天然氣",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "連接欣中天然氣",
+        "data": {
+          "customer_id": "用戶號碼",
+          "customer_name": "用氣戶名",
+          "name": "顯示名稱",
+          "history_limit": "初次歷史期數上限（0 為全部）"
+        },
+        "data_description": {
+          "customer_id": "六碼數字，保留開頭的零。",
+          "customer_name": "請檢查帳單填入用氣戶名",
+          "name": "在 Home Assistant 顯示的裝置名稱",
+          "history_limit": "啟用後第一次匯入資料，回補多少歷史資料。預設 0 為回填所有可查詢帳單"
+        },
+        "description": "輸入六碼用戶號碼與戶名。查詢欣中官方帳單；不需驗證碼。歷史上限 0 表示全部帳期。"
+      },
+      "reconfigure": {
+        "title": "重新設定帳戶",
+        "data": {
+          "customer_id": "用戶號碼",
+          "customer_name": "用氣戶名",
+          "name": "顯示名稱",
+          "history_limit": "歷史期數上限（0 為全部）"
+        },
+        "data_description": {
+          "customer_id": "六碼數字，保留開頭的零。",
+          "customer_name": "請檢查帳單填入用氣戶名",
+          "name": "在 Home Assistant 顯示的裝置名稱",
+          "history_limit": "重新驗證後最多匯入多少期歷史帳單。"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "目前無法連線至服務，請稍後再試。",
+      "invalid_auth": "用戶號碼或用氣戶名未通過驗證。",
+      "site_changed": "欣中網站回應格式已變更，目前無法安全驗證。",
+      "invalid_customer_id": "請輸入六碼用戶號碼。",
+      "invalid_customer_name": "請輸入有效的用氣戶名。",
+      "invalid_name": "請輸入有效的顯示名稱。",
+      "invalid_history_limit": "歷史期數上限必須為 0 或正整數。",
+      "upstream_rejected": "未取得帳單，請確認戶號及戶名；官網也可能沒有可查帳單。",
+      "duplicate_month": "同月有多筆應收資料，已停止以避免覆蓋。",
+      "month_unavailable": "官網沒有該帳期。",
+      "invalid_month": "請使用 YYYY-MM 帳期。"
+    },
+    "abort": {
+      "already_configured": "此用戶號碼已完成設定。",
+      "wrong_account": "重新設定不能把這筆設定切換為另一個用戶號碼。",
+      "reconfigure_successful": "帳戶已重新驗證並更新。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "欣中天然氣選項",
+        "menu_options": {
+          "settings": "排程與計算設定"
+        }
+      },
+      "settings": {
+        "title": "排程與計算設定",
+        "data": {
+          "enabled": "啟用排程查詢",
+          "schedule": "查詢週期",
+          "query_time": "查詢時間",
+          "weekday": "星期（星期一為 0）",
+          "monthday": "每月日期",
+          "history_limit": "歷史期數上限（0 為全部）",
+          "allocation": "帳期跨月配置方式",
+          "carbon_factor": "碳排係數（kgCO2e/m³）",
+          "carbon_factor_source": "碳排係數來源"
+        },
+        "data_description": {
+          "allocation": "按日依涵蓋天數分攤，或按涵蓋月份等額分攤；兩者皆為帳單估算，不是實測。",
+          "carbon_factor_source": "設定碳排係數時必填。"
+        },
+        "description": "分攤結果為估算，並非實際每日用氣。變更分攤方式會重建本整合統計。"
+      }
+    },
+    "error": {
+      "cannot_connect": "目前無法連線至服務，請稍後再試。",
+      "invalid_auth": "用戶號碼或用氣戶名未通過驗證。",
+      "site_changed": "欣中網站回應格式已變更，目前無法安全驗證。",
+      "invalid_query_time": "請輸入有效時間。",
+      "invalid_weekday": "星期必須介於 0 到 6。",
+      "invalid_monthday": "每月日期必須介於 1 到 31。",
+      "invalid_history_limit": "歷史期數上限必須為 0 或正整數。",
+      "invalid_schedule": "請選擇有效的查詢週期。",
+      "invalid_allocation": "請選擇有效的配置方式。",
+      "invalid_carbon_factor": "碳排係數必須為 0 或正數。",
+      "carbon_factor_source_required": "設定碳排係數時請填寫來源。",
+      "invalid_carbon_factor_source": "碳排係數來源文字過長。"
+    },
+    "abort": {}
+  },
+  "selector": {
+    "schedule": {
+      "options": {
+        "daily": "每日",
+        "weekly": "每週",
+        "monthly": "每月"
+      }
+    },
+    "allocation": {
+      "options": {
+        "days": "依各月實際日數配置",
+        "equal": "跨月平均分配"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "statistics_duration": {
+        "name": "上次統計寫入耗時"
+      },
+      "statistics_updated": {
+        "name": "上次統計寫入完成"
+      },
+      "latest_bill": {
+        "name": "最新帳單月份"
+      },
+      "usage_m3": {
+        "name": "最新帳單用氣量"
+      },
+      "total_twd": {
+        "name": "最新帳單應繳總額"
+      },
+      "carbon_kg": {
+        "name": "最新帳單碳排放量"
+      },
+      "carbon_source": {
+        "name": "碳排資料來源"
+      },
+      "period_start": {
+        "name": "計費期間起日"
+      },
+      "period_end": {
+        "name": "計費期間迄日"
+      },
+      "payment_due": {
+        "name": "繳費期限"
+      },
+      "payment_status": {
+        "name": "繳費狀態"
+      },
+      "daily_usage": {
+        "name": "平均每日用氣量"
+      },
+      "average_unit_cost": {
+        "name": "平均每立方公尺瓦斯費"
+      },
+      "last_attempt": {
+        "name": "上次查詢時間"
+      },
+      "last_success": {
+        "name": "上次成功查詢"
+      },
+      "next_query": {
+        "name": "下次查詢時間"
+      },
+      "last_failure": {
+        "name": "上次查詢失敗時間"
+      },
+      "query_status": {
+        "name": "查詢狀態",
+        "state": {
+          "never": "尚未查詢",
+          "running": "查詢中",
+          "success": "成功",
+          "partial": "部分完成",
+          "failed": "失敗"
+        }
+      },
+      "verification_status": {
+        "name": "欣中驗證狀態",
+        "state": {
+          "not_run": "尚未驗證",
+          "accepted": "已通過",
+          "rejected": "未通過",
+          "unknown": "未知"
+        }
+      },
+      "error_code": {
+        "name": "錯誤代碼"
+      },
+      "available_count": {
+        "name": "可查帳單期數"
+      },
+      "imported_count": {
+        "name": "已匯入帳單期數"
+      },
+      "statistics_status": {
+        "name": "長期統計狀態",
+        "state": {
+          "not_imported": "尚未匯入",
+          "pending": "等待背景寫入",
+          "running": "背景寫入中",
+          "published": "已完成",
+          "partial": "僅有月份資料",
+          "failed": "寫入失敗"
+        }
+      },
+      "monthly_gas": {
+        "name": "最新月份分攤用氣量"
+      },
+      "monthly_cost": {
+        "name": "最新月份分攤費用"
+      },
+      "monthly_carbon": {
+        "name": "最新月份分攤碳排量"
+      },
+      "latest_allocated_month": {
+        "name": "最新分攤月份"
+      },
+      "year_gas": {
+        "name": "本年度用氣量"
+      },
+      "year_cost": {
+        "name": "本年度瓦斯費"
+      },
+      "year_carbon": {
+        "name": "本年度碳排放量"
+      },
+      "year_covered_months": {
+        "name": "本年度涵蓋月份數"
+      },
+      "meter_reading": {
+        "name": "帳期抄表度"
+      },
+      "reading_status": {
+        "name": "抄表狀況"
+      },
+      "fee_3da31ae3f3": {
+        "name": "從量費"
+      },
+      "fee_15f359cf01": {
+        "name": "表/開關租金"
+      },
+      "fee_c3572e03c2": {
+        "name": "追收"
+      },
+      "fee_18fb3149aa": {
+        "name": "退還"
+      },
+      "fee_ddd561fb3f": {
+        "name": "基本費"
+      },
+      "fee_0d0858c734": {
+        "name": "違約金"
+      },
+      "date_a5a8f1ffc0": {
+        "name": "應收日期"
+      },
+      "date_2d6e8ce7ed": {
+        "name": "繳費期限"
+      }
+    },
+    "binary_sensor": {
+      "last_query_failed": {
+        "name": "上次查詢失敗"
+      },
+      "verification_accepted": {
+        "name": "欣中驗證通過"
+      },
+      "history_complete": {
+        "name": "歷史資料完整"
+      }
+    },
+    "button": {
+      "rebuild_statistics": {
+        "name": "重建長期統計"
+      },
+      "query_latest": {
+        "name": "立即查詢最新帳單"
+      },
+      "backfill_history": {
+        "name": "回填歷史帳單"
+      }
+    },
+    "switch": {
+      "enabled": {
+        "name": "排程查詢"
+      }
+    }
+  },
+  "exceptions": {
+    "query_busy": {
+      "message": "已有欣中查詢正在進行，請等待查詢狀態完成後再試。"
+    },
+    "query_failed": {
+      "message": "欣中查詢失敗（{code}）。"
+    },
+    "set_enabled_failed": {
+      "message": "無法變更查詢排程（{code}）。"
+    }
+  },
+  "services": {
+    "get_query_history": {
+      "name": "讀取最近查詢紀錄",
+      "description": "讀取最近 100 次內的去敏查詢結果，不連線欣中。",
+      "fields": {
+        "config_entry_id": {
+          "name": "欣中帳戶"
+        },
+        "limit": {
+          "name": "最多回傳紀錄數"
+        }
+      }
+    },
+    "query_month": {
+      "name": "補抓指定帳期",
+      "description": "重新取得原站提供的指定帳期，保留其他帳單與排程。",
+      "fields": {
+        "config_entry_id": {
+          "name": "欣中帳戶"
+        },
+        "month": {
+          "name": "帳期（YYYY-MM）"
+        }
+      }
+    }
+  }
+}

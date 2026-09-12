@@ -1,0 +1,53 @@
+get_history:
+  name: 讀取已保存的帳單與分攤
+  description: 回傳本機帳单與每月分攤估算，不向原站送出新查詢。
+  fields:
+    config_entry_id:
+      name: 欣中帳戶
+      required: true
+      selector:
+        config_entry:
+          integration: scgas
+    limit:
+      name: 最多回傳帳期數
+      default: 50
+      selector:
+        number:
+          min: 1
+          max: 200
+          mode: box
+get_query_history:
+  name: 讀取最近查詢紀錄
+  description: 回傳最近 100 次內的查詢狀態、OCR 與欣中驗證結果，不觸發查詢。最新紀錄在前。
+  fields:
+    config_entry_id:
+      name: 欣中帳戶
+      required: true
+      selector:
+        config_entry:
+          integration: scgas
+    limit:
+      name: 最多回傳紀錄數
+      default: 25
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: box
+query_month:
+  name: 補抓指定帳期
+  description: 重新向欣中查詢並更新單一帳期；不改動其他帳單或下次排程。帳期須為原站提供的西元 YYYY-MM。
+  fields:
+    config_entry_id:
+      name: 欣中帳戶
+      required: true
+      selector:
+        config_entry:
+          integration: scgas
+    month:
+      name: 帳期
+      description: 原站提供的帳期，例如 2026-08，並非分攤後的每個月份。
+      required: true
+      example: "2026-08"
+      selector:
+        text:

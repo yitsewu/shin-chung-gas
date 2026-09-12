@@ -1,0 +1,328 @@
+{
+  "title": "Shin Chung Gas Corporation",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Connect Shin Chung Gas",
+        "data": {
+          "customer_id": "Gas account number",
+          "customer_name": "Customer name",
+          "name": "Display name",
+          "history_limit": "Initial history limit (0 = all)"
+        },
+        "data_description": {
+          "customer_id": "Six digits; keep leading zeros.",
+          "customer_name": "Check your bill and enter the customer name shown on it.",
+          "name": "Device name displayed in Home Assistant.",
+          "history_limit": "How much history to backfill on the first import after setup. The default, 0, imports all available bills."
+        },
+        "description": "Enter the six-digit customer number and account name. No CAPTCHA is required. Set history limit to 0 for all available bills."
+      },
+      "reconfigure": {
+        "title": "Reconfigure account",
+        "data": {
+          "customer_id": "Gas account number",
+          "customer_name": "Customer name",
+          "name": "Display name",
+          "history_limit": "History limit (0 = all)"
+        },
+        "data_description": {
+          "customer_id": "Six digits; keep leading zeros.",
+          "customer_name": "Check your bill and enter the customer name shown on it.",
+          "name": "Device name displayed in Home Assistant.",
+          "history_limit": "Choose the maximum history to keep importing after verification."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the service. Try again later.",
+      "invalid_auth": "The gas account number or customer name was rejected.",
+      "site_changed": "The official site response has changed and cannot be verified safely.",
+      "invalid_customer_id": "Enter a six-digit customer number.",
+      "invalid_customer_name": "Enter a valid customer name.",
+      "invalid_name": "Enter a valid display name.",
+      "invalid_history_limit": "History limit must be 0 or greater.",
+      "upstream_rejected": "No bills returned. Check the customer number and name; bills may also be unavailable.",
+      "duplicate_month": "Multiple bills in one month; stopped to prevent overwriting.",
+      "month_unavailable": "That billing month is not available.",
+      "invalid_month": "Use YYYY-MM for the billing month."
+    },
+    "abort": {
+      "already_configured": "This gas account is already configured.",
+      "wrong_account": "Reconfiguration cannot change the gas account assigned to this entry.",
+      "reconfigure_successful": "The account was verified and updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Shin Chung Gas options",
+        "menu_options": {
+          "settings": "Schedule and calculations"
+        }
+      },
+      "settings": {
+        "title": "Schedule and calculations",
+        "data": {
+          "enabled": "Enable scheduled queries",
+          "schedule": "Schedule",
+          "query_time": "Query time",
+          "weekday": "Weekday (Monday = 0)",
+          "monthday": "Day of month",
+          "history_limit": "History limit (0 = all)",
+          "allocation": "Billing-period allocation",
+          "carbon_factor": "Carbon factor (kgCO2e/m³)",
+          "carbon_factor_source": "Carbon factor source"
+        },
+        "data_description": {
+          "allocation": "Allocate by covered days or equally across covered months. Both are estimates from bills, not measurements.",
+          "carbon_factor_source": "Required when a carbon factor is configured."
+        },
+        "description": "Allocated usage is estimated, not measured daily. Changing allocation rebuilds this integration’s statistics."
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the service. Try again later.",
+      "invalid_auth": "The gas account number or customer name was rejected.",
+      "site_changed": "The official site response has changed and cannot be verified safely.",
+      "invalid_query_time": "Enter a valid time.",
+      "invalid_weekday": "Weekday must be from 0 to 6.",
+      "invalid_monthday": "Day of month must be from 1 to 31.",
+      "invalid_history_limit": "History limit must be 0 or greater.",
+      "invalid_schedule": "Select a valid schedule.",
+      "invalid_allocation": "Select a valid allocation method.",
+      "invalid_carbon_factor": "Carbon factor must be 0 or greater.",
+      "carbon_factor_source_required": "Enter the source for the configured carbon factor.",
+      "invalid_carbon_factor_source": "Carbon factor source is too long."
+    },
+    "abort": {}
+  },
+  "selector": {
+    "schedule": {
+      "options": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
+      }
+    },
+    "allocation": {
+      "options": {
+        "days": "Allocate by calendar days",
+        "equal": "Split equally across months"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "statistics_duration": {
+        "name": "Last statistics publication duration"
+      },
+      "statistics_updated": {
+        "name": "Last statistics publication"
+      },
+      "latest_bill": {
+        "name": "Latest bill"
+      },
+      "usage_m3": {
+        "name": "Latest bill gas usage"
+      },
+      "total_twd": {
+        "name": "Latest bill total"
+      },
+      "carbon_kg": {
+        "name": "Latest bill carbon emissions"
+      },
+      "carbon_source": {
+        "name": "Carbon data source"
+      },
+      "period_start": {
+        "name": "Billing period start"
+      },
+      "period_end": {
+        "name": "Billing period end"
+      },
+      "payment_due": {
+        "name": "Payment due date"
+      },
+      "payment_status": {
+        "name": "Payment status"
+      },
+      "daily_usage": {
+        "name": "Daily gas usage"
+      },
+      "average_unit_cost": {
+        "name": "Average unit cost"
+      },
+      "last_attempt": {
+        "name": "Last query attempt"
+      },
+      "last_success": {
+        "name": "Last successful query"
+      },
+      "next_query": {
+        "name": "Next scheduled query"
+      },
+      "last_failure": {
+        "name": "Last failed query"
+      },
+      "query_status": {
+        "name": "Query status",
+        "state": {
+          "never": "Never run",
+          "running": "Running",
+          "success": "Success",
+          "partial": "Partial",
+          "failed": "Failed"
+        }
+      },
+      "verification_status": {
+        "name": "Verification status",
+        "state": {
+          "not_run": "Not run",
+          "accepted": "Accepted",
+          "rejected": "Rejected",
+          "unknown": "Unknown"
+        }
+      },
+      "error_code": {
+        "name": "Error code"
+      },
+      "available_count": {
+        "name": "Available bill count"
+      },
+      "imported_count": {
+        "name": "Imported bill count"
+      },
+      "statistics_status": {
+        "name": "Statistics status",
+        "state": {
+          "not_imported": "Not imported",
+          "pending": "Pending",
+          "running": "Publishing",
+          "published": "Published",
+          "partial": "Monthly data only",
+          "failed": "Failed"
+        }
+      },
+      "monthly_gas": {
+        "name": "Latest allocated month gas usage"
+      },
+      "monthly_cost": {
+        "name": "Latest allocated month cost"
+      },
+      "monthly_carbon": {
+        "name": "Latest allocated month carbon emissions"
+      },
+      "latest_allocated_month": {
+        "name": "Latest allocated month"
+      },
+      "year_gas": {
+        "name": "Current year gas usage"
+      },
+      "year_cost": {
+        "name": "Current year cost"
+      },
+      "year_carbon": {
+        "name": "Current year carbon emissions"
+      },
+      "year_covered_months": {
+        "name": "Current year covered months"
+      },
+      "meter_reading": {
+        "name": "Billing meter reading"
+      },
+      "reading_status": {
+        "name": "Reading method"
+      },
+      "fee_3da31ae3f3": {
+        "name": "Usage fee"
+      },
+      "fee_15f359cf01": {
+        "name": "Meter/switch rental"
+      },
+      "fee_c3572e03c2": {
+        "name": "Additional charge"
+      },
+      "fee_18fb3149aa": {
+        "name": "Refund"
+      },
+      "fee_ddd561fb3f": {
+        "name": "Basic fee"
+      },
+      "fee_0d0858c734": {
+        "name": "Penalty"
+      },
+      "date_a5a8f1ffc0": {
+        "name": "Receivable date"
+      },
+      "date_2d6e8ce7ed": {
+        "name": "Payment deadline"
+      }
+    },
+    "binary_sensor": {
+      "last_query_failed": {
+        "name": "Last query failed"
+      },
+      "verification_accepted": {
+        "name": "Shin Chung Gas verification accepted"
+      },
+      "history_complete": {
+        "name": "History complete"
+      }
+    },
+    "button": {
+      "rebuild_statistics": {
+        "name": "Rebuild long-term statistics"
+      },
+      "query_latest": {
+        "name": "Query latest bill"
+      },
+      "backfill_history": {
+        "name": "Backfill bill history"
+      }
+    },
+    "switch": {
+      "enabled": {
+        "name": "Scheduled queries"
+      }
+    }
+  },
+  "exceptions": {
+    "query_busy": {
+      "message": "A Shin Chung Gas query is already running. Wait for it to finish before trying again."
+    },
+    "query_failed": {
+      "message": "The Shin Chung Gas query failed ({code})."
+    },
+    "set_enabled_failed": {
+      "message": "Could not change the query schedule ({code})."
+    }
+  },
+  "services": {
+    "get_query_history": {
+      "name": "Read recent query history",
+      "description": "Read up to 100 retained query results without contacting Shin Chung Gas.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Shin Chung Gas account"
+        },
+        "limit": {
+          "name": "Maximum records"
+        }
+      }
+    },
+    "query_month": {
+      "name": "Refresh a specific bill period",
+      "description": "Refresh one available bill period, preserving other bills and the schedule.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Shin Chung Gas account"
+        },
+        "month": {
+          "name": "Bill period (YYYY-MM)"
+        }
+      }
+    }
+  }
+}
