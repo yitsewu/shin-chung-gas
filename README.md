@@ -51,9 +51,7 @@
 | 「瓦斯用量」選 **欣中天然氣 總用氣量**；「瓦斯流率」留空，顯示名稱填 **欣中天然氣**。 | 往下捲動，選 **獨立實體以追蹤總成本**；總成本選 **欣中天然氣 總費用**，按「儲存」。 |
 | <a href="docs/images/energy-gas-usage.png"><img src="docs/images/energy-gas-usage.png" alt="選擇欣中天然氣總用氣量，瓦斯流率留空" width="300"></a> | <a href="docs/images/energy-gas-cost.png"><img src="docs/images/energy-gas-cost.png" alt="選擇獨立實體追蹤總成本，並指定欣中天然氣總費用" width="300"></a> |
 
-點擊圖片可查看原尺寸。
-
-截圖為已設定來源的編輯畫面，因此「儲存」呈灰色；新增或修改選項後即可儲存。若有自訂裝置名稱，請選擇對應名稱的統計。
+新增或修改選項後即可儲存。若有自訂裝置名稱，請選擇對應名稱的統計。
 
 **3. 查看結果**
 
