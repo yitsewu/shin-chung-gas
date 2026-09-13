@@ -1,7 +1,5 @@
 # Shin Chung Gas / 欣中天然氣帳單匯入
 
-**定期爬蟲檢查：** 每 6 小時由 GitHub 雲端使用最新正式版與測試帳戶，實際查詢欣中官網並驗證最新一期帳單解析。徽章只代表最近一次執行；超過 12 小時沒有新結果視為未知。這項檢查與家中 HA 自動匯入排程各自獨立。[檢查範圍與維護](docs/live-check.md)
-
 [![Open your Home Assistant instance and open a repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=yitsewu&repository=shin-chung-gas&category=integration)
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
