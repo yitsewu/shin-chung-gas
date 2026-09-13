@@ -13,9 +13,11 @@ Home Assistant 自訂整合，透過欣中天然氣官方氣費查詢取得帳�
 
 ## 安裝
 
-將 Release／本機 `dist/scgas.zip` 解壓至 HA 的 `/config/custom_components/scgas/`，確保 `manifest.json` 位於該目錄內，重新啟動 Home Assistant。在「設定 → 裝置與服務 → 新增整合」搜尋「欣中天然氣」，輸入本人帳單的用戶號碼與戶名。
+在 HACS 的「自訂儲存庫」新增 `https://github.com/yitsewu/shin-chung-gas`，類型選 Integration，下載後重新啟動 Home Assistant。在「設定 → 裝置與服務 → 新增整合」搜尋「欣中天然氣」，輸入本人帳單的用戶號碼與戶名。
 
-查詢直接使用欣中官方表單，不需要 CAPTCHA、OCR、外部 app 或額外 Python dependencies。套件具 HACS 結構，但私人 GitHub repository 不代表可在 HACS 預設目錄搜尋或自動更新；目前可用 ZIP 安裝。
+亦可將 Release／本機 `dist/scgas.zip` 解壓至 HA 的 `/config/custom_components/scgas/`，確保 `manifest.json` 位於該目錄內，再重新啟動。
+
+查詢直接使用欣中官方表單，不需要 CAPTCHA、OCR、外部 app 或額外 Python dependencies。Repository 已公開，可加入 HACS 自訂儲存庫；尚未收錄至 HACS 預設目錄。
 
 ## 能源儀表板
 
