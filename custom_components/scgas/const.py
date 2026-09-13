@@ -2,7 +2,7 @@
 
 DOMAIN = "scgas"
 NAME = "欣中天然氣"
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 PLATFORMS = ["sensor", "binary_sensor", "button", "switch"]
 DEFAULT_OPTIONS = {
     "enabled": True,
