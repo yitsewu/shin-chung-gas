@@ -13,14 +13,15 @@ with ZipFile(destination / "scgas.zip", "w", compression=ZIP_DEFLATED) as archiv
         if (
             not path.is_file()
             or "__pycache__" in path.parts
-            or (path.suffix not in {".py", ".json", ".yaml"} and path.name != "LICENSE")
+            or (path.suffix not in {".py", ".json", ".yaml", ".png"} and path.name != "LICENSE")
         ):
             continue
         info = ZipInfo(path.relative_to(source).as_posix(), date_time=(2026, 1, 1, 0, 0, 0))
         info.create_system = 3
         info.compress_type = ZIP_DEFLATED
         info.external_attr = 0o100644 << 16
-        archive.writestr(info, path.read_text("utf-8").replace("\r\n", "\n").encode("utf-8"))
+        payload = path.read_bytes() if path.suffix == ".png" else path.read_text("utf-8").replace("\r\n", "\n").encode("utf-8")
+        archive.writestr(info, payload)
 digest = hashlib.sha256((destination / "scgas.zip").read_bytes()).hexdigest()
 (destination / "SHA256SUMS").write_text(digest + "  scgas.zip\n", encoding="utf-8")
 print(digest)
