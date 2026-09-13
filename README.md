@@ -9,7 +9,7 @@
 
 非欣中天然氣官方整合，適用欣中天然氣用戶。
 
-[完整使用指南](docs/usage.md) · [爬蟲排程與狀態](docs/live-check.md) · [更新紀錄](CHANGELOG.md)
+[English](docs/README.en.md) · [完整使用指南](docs/usage.md) · [爬蟲排程與狀態](docs/live-check.md) · [更新紀錄](CHANGELOG.md)
 
 ## 功能
 
