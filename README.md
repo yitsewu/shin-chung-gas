@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![爬蟲測試](https://img.shields.io/github/actions/workflow/status/yitsewu/shin-chung-gas/live-check.yaml?branch=main&label=%E7%88%AC%E8%9F%B2%E6%B8%AC%E8%A9%A6)](https://github.com/yitsewu/shin-chung-gas/actions/workflows/live-check.yaml)
 
-在 Home Assistant 查詢欣中天然氣帳單、用氣量與費用。填入用戶號碼及戶名即可使用，不需驗證碼。
+在 Home Assistant 查詢欣中天然氣帳單、用氣量與費用。填入用戶號碼及戶名即可使用。
 
 非欣中天然氣官方整合，適用欣中天然氣用戶。
 
