@@ -1,4 +1,4 @@
-# Shin Chung Gas / 欣中天然氣帳單匯入
+# HACS 欣中天然氣帳單匯入
 
 [![Open your Home Assistant instance and open a repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=yitsewu&repository=shin-chung-gas&category=integration)
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
