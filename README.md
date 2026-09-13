@@ -105,4 +105,6 @@
 
 ## 授權
 
-程式碼採用 [MIT License](LICENSE)。欣中標誌權利歸欣中天然氣股份有限公司所有，不包含在程式碼的 MIT 授權中；[標誌來源](custom_components/scgas/brand/source.json)。
+程式碼採用 [MIT License](LICENSE)。
+
+整合圖示使用欣中天然氣官網的標誌，並保留[來源與完整性資訊](custom_components/scgas/brand/source.json)。圖示權利歸欣中天然氣股份有限公司所有，不包含在程式碼的 MIT 授權中；僅用於辨識所連接的服務，不代表官方整合或背書。
